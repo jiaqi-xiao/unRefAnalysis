@@ -15,7 +15,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		6E7367E51CB7843200722B99 /* LinkMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LinkMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E7367E51CB7843200722B99 /* unRefAnalysis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = unRefAnalysis.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E7367E81CB7843200722B99 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6E7367E91CB7843200722B99 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		6E7367EC1CB7843200722B99 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -48,7 +48,7 @@
 		6E7367E61CB7843200722B99 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6E7367E51CB7843200722B99 /* LinkMap.app */,
+				6E7367E51CB7843200722B99 /* unRefAnalysis.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -79,9 +79,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6E7367E41CB7843200722B99 /* LinkMap */ = {
+		6E7367E41CB7843200722B99 /* unRefAnalysis */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6E7368041CB7843200722B99 /* Build configuration list for PBXNativeTarget "LinkMap" */;
+			buildConfigurationList = 6E7368041CB7843200722B99 /* Build configuration list for PBXNativeTarget "unRefAnalysis" */;
 			buildPhases = (
 				6E7367E11CB7843200722B99 /* Sources */,
 				6E7367E21CB7843200722B99 /* Frameworks */,
@@ -91,9 +91,9 @@
 			);
 			dependencies = (
 			);
-			name = LinkMap;
+			name = unRefAnalysis;
 			productName = LinkMap;
-			productReference = 6E7367E51CB7843200722B99 /* LinkMap.app */;
+			productReference = 6E7367E51CB7843200722B99 /* unRefAnalysis.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -124,7 +124,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6E7367E41CB7843200722B99 /* LinkMap */,
+				6E7367E41CB7843200722B99 /* unRefAnalysis */,
 			);
 		};
 /* End PBXProject section */
@@ -253,7 +253,7 @@
 				INFOPLIST_FILE = LinkMap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_BUNDLE_IDENTIFIER = com.nd.LinkMap;
+				PRODUCT_BUNDLE_IDENTIFIER = tech.jqxiao.unRefAnalysis;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -266,7 +266,7 @@
 				INFOPLIST_FILE = LinkMap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_BUNDLE_IDENTIFIER = com.nd.LinkMap;
+				PRODUCT_BUNDLE_IDENTIFIER = tech.jqxiao.unRefAnalysis;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -283,7 +283,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6E7368041CB7843200722B99 /* Build configuration list for PBXNativeTarget "LinkMap" */ = {
+		6E7368041CB7843200722B99 /* Build configuration list for PBXNativeTarget "unRefAnalysis" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6E7368051CB7843200722B99 /* Debug */,

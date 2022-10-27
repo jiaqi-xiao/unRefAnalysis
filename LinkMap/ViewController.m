@@ -191,6 +191,8 @@ static NSString *kQuerySelRefs = @"__objc_selrefs";
     BOOL allSelResultsBegin = NO;
     BOOL canAddName = NO;
     BOOL canAddMethods = NO;
+    int target_indent = 0;
+    int cur_indent = 0;
     NSString *className = @"";
     
     NSMutableDictionary *methodDic = [NSMutableDictionary dictionary];
@@ -206,7 +208,18 @@ static NSString *kQuerySelRefs = @"__objc_selrefs";
         }
         
         if (allSelResultsBegin) {
-            if ([line containsString:@"data"]) {
+            // get current line indent
+            cur_indent = 0;
+            for (int i = 0; i < line.length; i++) {
+                if ([line characterAtIndex:i] == ' ') {
+                    cur_indent++;
+                } else {
+                    break;
+                }
+            }
+            // if ([line containsString:@"data"]) {
+            // '0000000‘为开头 标记为类的开始
+            if ([line hasPrefix:@"0000000"]) {
                 if (methodDic.count > 0) {
                     [allSelResults setValue:methodDic forKey:className];
                     methodDic = [NSMutableDictionary dictionary];
@@ -221,23 +234,30 @@ static NSString *kQuerySelRefs = @"__objc_selrefs";
                 // 更新类名，用作标记{ className:{ address: methodName } }
                 NSArray *components = [line componentsSeparatedByString:@" "];
                 className = [components lastObject];
+                canAddName = NO;
                 continue;
             }
             
-            if ([line containsString:@"methods"] || [line containsString:@"Methods"]) {
+           if ([line containsString:@"methods"] || [line containsString:@"Methods"]) {
+            // if ([line containsString:@"baseMethods"]) {
                 // method之后的name是方法名，和方法地址
-                canAddName = NO;
+                target_indent = cur_indent + 4;
                 canAddMethods = YES;
                 continue;
             }
             
-            if (canAddMethods && [line containsString:@"name"]) {
+            if (canAddMethods && [line containsString:@"name"] && cur_indent == target_indent) {
                 NSArray *components = [line componentsSeparatedByString:@" "];
                 if (components.count > 2) {
                     NSString *methodAddress = components[components.count-2];
                     NSString *methodName = [components lastObject];
                     [methodDic setValue:methodName forKey:methodAddress];
                 }
+                continue;
+            }
+
+            if (canAddMethods && cur_indent < target_indent) {
+                canAddMethods = NO;
                 continue;
             }
         }
@@ -268,9 +288,12 @@ static NSString *kQuerySelRefs = @"__objc_selrefs";
         
         if(classRefsBegin && [line containsString:@"000000010"]) {
             NSArray *components = [line componentsSeparatedByString:@" "];
-            NSString *address = [components lastObject];
-            if ([address hasPrefix:@"0x100"]) {
-                [classRefsResults addObject:address];            }
+            // 获取类地址
+            for (NSString *address in components) {
+                if ([address hasPrefix:@"0x1"]) {
+                    [classRefsResults addObject:address];
+                }
+            }
         }
     }
 
@@ -333,7 +356,7 @@ static NSString *kQuerySelRefs = @"__objc_selrefs";
         if (classListBegin) {
             if([line containsString:@"000000010"]) {
                 NSArray *components = [line componentsSeparatedByString:@" "];
-                NSString *address = [components lastObject];
+                NSString *address = [components objectAtIndex:1];;
                 addressStr = address;
                 canAddName = YES;
             }
@@ -346,6 +369,14 @@ static NSString *kQuerySelRefs = @"__objc_selrefs";
                     canAddName = NO;
                 }
             }
+//            if([line containsString:@"000000010"]) {
+//                NSArray *components = [line componentsSeparatedByString:@" "];
+//                if (components.count > 2){
+//                    NSString *addressStr = [components objectAtIndex:1];
+//                    NSString *className = [components lastObject];
+//                    [classListResults setValue:className forKey:addressStr];
+//                }
+//            }
         }
     }
     NSLog(@"__objc_classlist总结如下，共有%ld个\n%@：", classListResults.count, classListResults);
